@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import SearchCity from "./components/SearchCity"
+import Cities from "./components/Cities"
 
-function App() {
+class App extends Component{
+  constructor(){
+    super()
+    this.state = {
+      cities: [
+        {name: "Tel Aviv", temperature: 16},
+        {name: "Jerusalem", temperature: 10}
+      ]
+    }
+  }
+
+
+  addCity = (city) => {
+    let newCities = [...this.state.cities]
+    newCities.unshift({name: city})
+    this.setState({
+      cities: newCities
+    }, function(){
+      console.log(this.state.cities)
+    })
+  }
+
+  render(){
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <SearchCity addCity={this.addCity}/>
+       <Cities cities={this.state.cities}/>
     </div>
-  );
+  )
+  }
 }
 
 export default App;
