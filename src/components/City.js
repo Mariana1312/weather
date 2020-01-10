@@ -5,9 +5,8 @@ class City extends Component {
         let city = this.props.city
 
         return(
-            <div>
-                {city.name}
-                {city.temperature}
+            <div className={this.props.className}>
+                {city.name}: {city.temperature}°C, {city.humidity}, {city.wind}s km/h, {city.icon}
             </div>
         )
     }

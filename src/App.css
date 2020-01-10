@@ -1,5 +1,35 @@
 .App {
   text-align: center;
+  height: 80vh;
+  width: 100vw;
+  display: grid;
+  margin-top: 10vh;
+  grid-template-rows: 1fr, 7fr;
+  grid-template-areas: "i"
+  "c";
+}
+
+/* #cities{
+  grid-area: c;
+  display: grid;
+  grid-template-rows: 4fr, 3fr;
+  grid-template-columns: repeat(3,1fr);
+}
+
+#input{
+  grid-area: i;
+}
+
+.primary{
+  width:100vw;
+}
+
+.secondary{
+  width: 33vw;
+} */
+
+body{
+  background-color: lightseagreen;
 }
 
 .App-logo {

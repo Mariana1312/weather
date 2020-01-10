@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// const puppeteer = require('puppeteer');
+// const $ = require('cheerio');
 
 class SearchCity extends Component {
     constructor(){
@@ -16,13 +18,15 @@ class SearchCity extends Component {
     }
 
     addCity = () => {
-        console.log(this.state.name);
-        this.props.addCity(this.state.name)
+        let cityName = this.state.name
+        console.log(cityName);
+
+        this.props.addCity(cityName)
     }
 
     render(){
         return(
-            <div>
+            <div id="input">
                 <input id="cityName" name="city" type="text" placeholder="Search for a city" onChange={this.handleInput}></input>
                 <button onClick={this.addCity}>Search</button>
             </div>
