@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
-// const puppeteer = require('puppeteer');
-// const $ = require('cheerio');
+import '../styles/search.css'
+
 
 class SearchCity extends Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
-            name: ""
+            city: "",
+            country: ""
         }
     }
 
     handleInput = (e) => {
+        let name = e.target.name
         let value = e.target.value
-         this.setState({
-            name: value
+        this.setState({
+            [name]: value
         })
     }
 
     addCity = () => {
-        let cityName = this.state.name
-        console.log(cityName);
-
-        this.props.addCity(cityName)
+        let cityName = this.state.city
+        let countryName = this.state.country
+        this.props.addCity(cityName, countryName)
     }
 
-    render(){
-        return(
-            <div id="input">
-                <input id="cityName" name="city" type="text" placeholder="Search for a city" onChange={this.handleInput}></input>
-                <button onClick={this.addCity}>Search</button>
+    render() {
+        return (
+            <div className="search">
+                <h1>WEATHER</h1>
+                <input id="input" name="city" type="text" placeholder="City" onChange={this.handleInput}></input>
+                <input id="input" name="country" type="text" placeholder="Country" onChange={this.handleInput}></input>
+                <button onClick={this.addCity}><i className="fa fa-search"></i></button>
             </div>
         )
     }

@@ -4,51 +4,54 @@ import axios from 'axios'
 import SearchCity from "./components/SearchCity"
 import Cities from "./components/Cities"
 
-class App extends Component{
-  constructor(){
+class App extends Component {
+  constructor() {
     super()
     this.state = {
-      cities: [
-        {name: "Tel Aviv", temperature: 16},
-        {name: "Jerusalem", temperature: 10},
-        {name: "New York", temperature: 7}
-      ]
+      cities: []
     }
   }
 
-  async getCityData(CITY) {
-    await axios.get(`http://localhost:4000/get-city-data/${CITY}`)
+  async getCityData(cityName, countryName) {
+    await axios.get(`http://localhost:4000/get-city-data/${countryName}/${cityName}`)
       .then((response) => {
         let city = {
-          name: CITY,
+          name: cityName,
           temperature: response.data.temperature,
-          humidity: response.data.Humidity,
-          wind: response.data.Wind,
+          humidity: response.data.humidity,
+          wind: response.data.wind,
+          sky: response.data.sky,
           icon: response.data.icon
         }
 
-      let newCities = [...this.state.cities]
-      newCities.unshift(city)
-      this.setState({
-        cities: newCities
-      }, function(){
-        console.log(this.state.cities)
+        let newCities = [...this.state.cities]
+        newCities.unshift(city)
+        this.setState({
+          cities: newCities
+        }, function () {
+          console.log(this.state.cities)
+        })
       })
-    })  
   }
 
-  addCity = (cityName) => {
-    let city = this.getCityData(cityName);
+  addCity = (cityName, countryName) => {
+    if(this.state.cities.find(c => c.name === cityName)){
+      alert(cityName + " is already here:)")
+      return
+    }
+    console.log(cityName);
+    console.log(countryName);
+    this.getCityData(cityName, countryName);
   }
 
-  render(){
+  render() {
 
-  return (
-    <div className="App">
-       <SearchCity addCity={this.addCity}/>
-       <Cities cities={this.state.cities}/>
-    </div>
-  )
+    return (
+      <div className="App">
+        <SearchCity addCity={this.addCity} />
+        <Cities cities={this.state.cities} />
+      </div>
+    )
   }
 }
 

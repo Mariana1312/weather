@@ -10,32 +10,35 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.get('/get-city-data/:cityName', async (req, res) => {
-let CITY = req.params.cityName.replace(" ", "-")
+app.get('/get-city-data/:countryName/:cityName', async (req, res) => {
+    let CITY = req.params.cityName.replace(" ", "-")
+    let COUNTRY = req.params.countryName
+
+    const url = `https://www.timeanddate.com/weather/${COUNTRY}/${CITY}/ext`
+
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto(url)
+    const pageHtml = await page.content()
+    let data = {}
+
+    data.humidity = $("#qfacts > p:nth-child(7)", pageHtml).text()
     
-const url = `https://www.theweathernetwork.com/il/weather/-/${CITY}`;
+    //wind:
+    let wholeString = $("#qlook > p:nth-child(6)", pageHtml).text()
+    let afterWind = wholeString.split("Wind: ")[1]
+    data.wind = afterWind.split(" km/h")[0]
 
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(url); // URL is given by the "user" (your client-side application)
-    const pageHtml = await page.content();
-    let data = {};
+    data.temperature = $($(".h2", pageHtml)[0]).text()
+    data.sky = $("#qlook > p:nth-child(4)", pageHtml).text()
+    data.icon = $($(".mtt", pageHtml)[0]).attr("src")
 
-    $('.detailed-metrics', pageHtml).each(function() {
-        key = $($(this).children()[0]).html();
-        value = $($(this).children()[1]).html();
-        data[key] = value;
-      });
+    console.log(data)
 
-      data.temperature = $($(".temp", pageHtml)[0]).text(); 
-      data.icon = $($(".weather-icon img", pageHtml)[0]).attr("src"); 
+    await browser.close()
 
-      console.log(data);
-
-      await browser.close();
-
-    res.send(data);
+    res.send(data)
 
 })
 
-app.listen(4000);
+app.listen(4000)
