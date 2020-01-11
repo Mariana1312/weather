@@ -1,0 +1,35 @@
+
+  #input{
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    padding: 2px;
+    margin: 2px;
+    font-size: 15px;
+    width: 150px;
+    height: 25px;
+    margin-top: 10px;
+}
+
+button{
+    background-color: rgb(59, 58, 58);
+    border: none;
+    color :white;
+    font-size: 15px;
+    height: 33px;
+    width: 35px;
+    cursor: pointer;
+}
+
+bottom:active {
+    border: none;
+}
+
+bottom:hover {
+    background-color: rgb(104, 102, 102);
+
+}
+.search{
+    font-size: 20px;
+    color:white;
+}
