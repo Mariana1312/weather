@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### The main page of the app:
+
+![enter](https://user-images.githubusercontent.com/17874439/72218297-58136080-3542-11ea-8122-7cf5f9cdcb21.jpg)
+
+### Searching for weather of cities of all over the world:
+
 ![weather_app](https://user-images.githubusercontent.com/17874439/72209849-ce20b480-34bb-11ea-8cfa-70de70c2db5c.jpg)
 
 ## Available Scripts
